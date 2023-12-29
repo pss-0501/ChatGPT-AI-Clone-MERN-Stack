@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {Route,Routes} from 'react-router-dom';
+import { useMemo } from 'react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import {createTheme} from "@mui/material/styles"
+import {themeSettings} from './theme';
+import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
+import Register from './pages/Register';
+import LoginPage from './pages/LoginPage';
 
 function App() {
+  const theme = useMemo(() => createTheme(themeSettings(), []));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>    
+          <Navbar/>
+            <Routes>
+              <Route path='/' element={<HomePage/>} />
+              <Route path='/register' element={<Register/>} />
+              <Route path='/login' element={<LoginPage/>} />
+            </Routes>
+    </ThemeProvider>
+    </>
   );
 }
 
